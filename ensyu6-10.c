@@ -18,4 +18,5 @@ int main(void)
 
     printf("—v‘f”‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
     scanf("%d",&n);
+    printf("Še—v‘f‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
 }

@@ -6,18 +6,18 @@ int main(void)
     int b[3][4];
     int c[4][4] ={0};
 
-    printf("s—ñA‚Ì¬•ª‚ğ“ü—Í(®”)\n");
+    printf("è¡Œåˆ—Aã®æˆåˆ†ã‚’å…¥åŠ›(æ•´æ•°)Â¥n");
     for(int i=0;i<4;i++) {
         for(int j=0;j<3;j++) {
-            printf("(%d,%d)¬•ª:",i+1,j+1);
+            printf("(%d,%d)æˆåˆ†:",i+1,j+1);
             scanf("%d",&a[i][j]);
         }
     }
 
-    printf("s—ñB‚Ì¬•ª‚ğ“ü—Í(®”)\n");
+    printf("è¡Œåˆ—Bã®æˆåˆ†ã‚’å…¥åŠ›(æ•´æ•°)Â¥n");
     for(int i=0;i<3;i++) {
         for(int j=0;j<4;j++) {
-            printf("(%d,%d)¬•ª:",i+1,j+1);
+            printf("(%d,%d)æˆåˆ†:",i+1,j+1);
             scanf("%d",&b[i][j]);
         }
     }
@@ -29,12 +29,12 @@ int main(void)
             }
         }
     }
-    printf("ŒvZŒ‹‰Ê---------------\n");
+    printf("è¨ˆç®—çµæœ---------------Â¥n");
     for(int i=0;i<4;i++) {
         for(int j=0;j<4;j++) {
             printf("%3d",c[i][j]);
         }
-        printf("\n");
+        printf("Â¥n");
     }
 
     return 0;

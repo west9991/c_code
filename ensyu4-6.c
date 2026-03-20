@@ -4,7 +4,7 @@ int main(void)
 {
     int no;
 
-    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æD");
+    printf("æ­£ã®æ•´æ•°ã‚’å…¥åŠ›ã›ã‚ˆï¼");
     scanf("%d",&no);
 
     int i=1;
@@ -12,7 +12,7 @@ int main(void)
         printf("%d ",i*2);
         i++;
     }
-    printf("\n");
+    printf("Â¥n");
 
     return 0;
 }

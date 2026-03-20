@@ -4,7 +4,7 @@ int main(void)
 {
     int no;
 
-    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æD\n");
+    printf("æ­£ã®æ•´æ•°ã‚’å…¥åŠ›ã›ã‚ˆï¼Â¥n");
     scanf("%d",&no);
 
     int max=2;
@@ -12,7 +12,7 @@ int main(void)
         printf("%d ",max);
         max *=2;
     }
-    printf("\n");
+    printf("Â¥n");
 
     return 0;
 }

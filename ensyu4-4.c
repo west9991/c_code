@@ -4,7 +4,7 @@ int main(void)
 {
     int no;
 
-    printf("³‚Ì®”‚ð“ü—Í‚¹‚æ\n");
+    printf("æ­£ã®æ•´æ•°ã‚’å…¥åŠ›ã›ã‚ˆÂ¥n");
     scanf("%d",&no);
 
     int no1=no;
@@ -12,7 +12,7 @@ int main(void)
         printf("%d ", no--);
     }
     if(no1>=1) {
-        printf("\n");
+        printf("Â¥n");
     }
 
     return 0;

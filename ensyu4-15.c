@@ -4,14 +4,14 @@ int main(void)
 {
     int start=0,end=0,inc=0;
 
-    printf("ŠJnCI—¹C‘•ª‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
+    printf("é–‹å§‹ï¼Œçµ‚äº†ï¼Œå¢—åˆ†ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„Â¥n");
     scanf("%d%d%d",&start,&end,&inc);
 
     int height;
     double std_weight;
     for(height=start;height<=end;height+=inc) {
         std_weight=(height-100)*0.9;
-        printf("%dcm  %.2fkg\n",height,std_weight);
+        printf("%dcm  %.2fkgÂ¥n",height,std_weight);
     }
 
     return 0;

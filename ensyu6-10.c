@@ -16,5 +16,5 @@ int main(void)
     int x1[NUMBER];
     int x2[NUMBER];
 
-    printf("—v‘f”‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+    printf("è¦ç´ æ•°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
 }

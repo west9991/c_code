@@ -1,0 +1,18 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int no;
+
+    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æD\n");
+    scanf("%d",&no);
+
+    int max=2;
+    while(max<=no) {
+        printf("%d ",max);
+        max *=2;
+    }
+    printf("\n");
+
+    return 0;
+}

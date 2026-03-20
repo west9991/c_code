@@ -1,0 +1,24 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int no;
+
+    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æ");
+    scanf("%d",&no);
+    int conf=no;
+    int i=0;
+    while(i<no) {
+        if(i%2) {
+            printf("-");
+    } else {
+        putchar('+');
+    }
+    i++;
+    }
+    if(conf>0) {
+        printf("\n");
+    }
+
+    return 0;
+}

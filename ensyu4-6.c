@@ -1,0 +1,18 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int no;
+
+    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æD");
+    scanf("%d",&no);
+
+    int i=1;
+    while(2*i<=no) {
+        printf("%d ",i*2);
+        i++;
+    }
+    printf("\n");
+
+    return 0;
+}

@@ -17,4 +17,5 @@ int main(void)
     int x2[NUMBER];
 
     printf("—v‘f”‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+    scanf("%d",&n);
 }

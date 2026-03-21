@@ -4,12 +4,12 @@ int main(void)
 {
     int n;
 
-    printf("æ•´æ•°ã‚’å…¥åŠ›Â¥n");
+    printf("®”‚ğ“ü—Í\n");
     scanf("%d",&n);
 
     switch(n%2) {
-        case 1 : puts("å¥‡æ•°ã§ã™");  break;
-        default : puts("å¶æ•°ã§ã™"); break;
+        case 1 : puts("Šï”‚Å‚·");  break;
+        default : puts("‹ô”‚Å‚·"); break;
     }
 
     return 0;

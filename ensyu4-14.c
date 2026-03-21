@@ -3,13 +3,13 @@
 int main(void)
 {
     int n;
-    printf("æ­£ã®æ•´æ•°ã‚’å…¥åŠ›ã›ã‚ˆÂ¥n");
+    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æ\n");
     scanf("%d",&n);
 
     for(int i=1;i<=n;i++) {
         printf("%d",i%10);
     }
-    if(n>0) printf("Â¥n");
+    if(n>0) printf("\n");
 
     return 0;
 }

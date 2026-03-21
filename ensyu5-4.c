@@ -18,9 +18,9 @@ int main(void)
         x[NUMBER-1 - i] = t;
     }
 
-    puts("åè»¢ã—ã¾ã—ãŸ");
+    puts("”½“]‚µ‚Ü‚µ‚½");
     for (int i = 0; i < NUMBER;i++) {
-        printf("x[%d] = %dÂ¥n", i , x[i]);
+        printf("x[%d] = %d\n", i , x[i]);
     }
 
     return 0;

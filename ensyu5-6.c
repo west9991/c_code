@@ -4,13 +4,13 @@ int main(void)
 {
     int no;
 
-    printf("ãƒ‡ãƒ¼ã‚¿æ•°ã‚’å…¥åŠ›Â¥n");
+    printf("ƒf[ƒ^”‚ğ“ü—Í\n");
     scanf("%d",&no);
 
     int x[DATA];
-    printf("è¦ç´ ã‚’å…¥åŠ›Â¥n");
+    printf("—v‘f‚ğ“ü—Í\n");
     for(int i=0;i<no;i++) {
-        printf("%2dç•ªï¼š",i+1);
+        printf("%2d”ÔF",i+1);
         scanf("%d",&x[i]);
     }
 

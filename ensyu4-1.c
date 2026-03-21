@@ -7,17 +7,17 @@ int main(void)
     do {
         int no;
 
-        printf("æ•´æ•°ã‚’å…¥åŠ›Â¥n");
+        printf("®”‚ğ“ü—Í\n");
         scanf("%d",&no);
         if(no == 0) {
-            printf("ï¼ã§ã™ï¼Â¥n");
+            printf("‚O‚Å‚·D\n");
         } else if(no > 0) {
-            printf("å€¤ã¯æ­£ã§ã™Â¥n");
+            printf("’l‚Í³‚Å‚·\n");
         } else {
-            printf("å€¤ã¯è² ã§ã™Â¥n");
+            printf("’l‚Í•‰‚Å‚·\n");
         }
 
-        printf("ç¶šã‘ã¾ã™ã‹ï¼Ÿ  ã¯ã„ï¼šï¼ï¼Œã„ã„ãˆï¼šï¼™Â¥n");
+        printf("‘±‚¯‚Ü‚·‚©H  ‚Í‚¢F‚OC‚¢‚¢‚¦F‚X\n");
         scanf("%d",&retry);
     } while(retry == 0);
 

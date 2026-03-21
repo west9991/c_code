@@ -4,7 +4,7 @@ int main(void)
 {
     int n;
 
-    printf("æ­£ã®æ•´æ•°ã‚’å…¥åŠ›ã›ã‚ˆÂ¥n");
+    printf("³‚Ì®”‚ğ“ü—Í‚¹‚æ\n");
     scanf("%d",&n);
 
     int sum=0;
@@ -12,7 +12,7 @@ int main(void)
         sum +=i;
     }
 
-    if(n>0) printf("1ã‹ã‚‰%dã¾ã§ã®ç·å’Œã¯%dã§ã™",n,sum);
+    if(n>0) printf("1‚©‚ç%d‚Ü‚Å‚Ì‘˜a‚Í%d‚Å‚·",n,sum);
 
     return 0;
 }

@@ -17,4 +17,20 @@ int main(void)
     int x2[NUMBER];
 
     printf("要素数を入力してください。");
+    scanf("%d",&n);
+
+    printf("元配列の各要素を入力してください");
+    for(int i=0;i<n;i++) {
+        printf("%dつ目",i+1);
+        scanf("%d",&x2[i]);
+    }
+
+    intary_rcpy(x1,x2,n);
+
+    printf("反転後の配列は下のようになる");
+    for(int i=0;i<n;i++) {
+        printf("%3d",x1[i]);
+    }
+
+    return 0;
 }

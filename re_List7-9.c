@@ -16,8 +16,21 @@ int int_bits(void)
                                                 すなわち、~0Uは全ビットが1の整数*/
 }
 
-void print_bits(unsigned x)
+void print_nbits(unsigned x, unsigned n)
 {
-    for (int i = int_bits() -1; i >= 0; i--)
+    int i= int_bits();
+    i = (n < i) ? n-1 : i-1;
+    for ( ; i >=0; i--)
         putchar(((x >> i) & 1U) ? '1' : '0');
+}
+
+int main(void)
+{
+    for(unsigned i=0; i<= 65U; i++) {
+        printf("%5u ", i);
+        print_nbits(i, 16);
+        printf(" %06o %04X\n", i, i);
+    }
+
+    return 0;
 }

@@ -6,7 +6,7 @@ int main(void)
 {
 	FILE *fp;
 
-	fp = fopen("abc", "r");						// ファイルのオープン
+	fp = fopen("abc.txt", "r");						// ファイルのオープン
 
 	if (fp == NULL)
 		printf("\aファイル\"abc\"をオープンできませんでした。\n");

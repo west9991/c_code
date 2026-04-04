@@ -5,9 +5,12 @@
    "label": "build and run C",
    "type": "shell",
    "command": "cmd",
+   "options": {
+     "cwd": "${fileDirname}"
+   },
    "args": [
     "/c",
-    "cl /Fe:build\\${fileBasenameNoExtension}.exe ${file} && build\\${fileBasenameNoExtension}.exe"
+    "cl /Fe:${fileBasenameNoExtension}.exe ${file} && ${fileBasenameNoExtension}.exe"
    ],
    "group": {
     "kind": "build",

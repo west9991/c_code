@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <time.h>
 //#include <sys/time.h>
+//差分法に余分に上下左右がいるから1枠増やしている。あくまで計算に使用した領域が、256*256と表現できるようにするための工夫
 
 int rank = 0;
 clock_t start, mid, end; //CPUの実行時間計測のための変数
@@ -257,7 +258,7 @@ void Phase_field
 //********************************************Main Function******************************************//
 //=================================================-=================================================//
 
-int main(int argc, char** argv)
+int main(int argc, char** argv) //この引数何？
 {
 	float *P, *PP;  //for CPU
 	float *sum;
@@ -331,7 +332,7 @@ int main(int argc, char** argv)
 
 		float rr = sqrtf(xx*xx+yy*yy)-r0;
 
-		P[ix] = 0.5*(1.0-tanhf(sqrtf(2.0*www)/(2.0*aaa)*rr));//界面を中心とする1次元平衡プロファイル
+		P[ix] = 0.5*(1.0-tanhf(sqrtf(2.0*www)/(2.0*aaa)*rr));//1次元平衡プロファイル
 	}
 	}
 

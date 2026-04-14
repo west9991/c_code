@@ -35,7 +35,7 @@ void put_data(void)
                 timer->tm_year +1900, timer->tm_mon +1, timer->tm_mday, timer->tm_hour, timer->tm_min, timer->tm_sec, kibun);
 
         fclose(fp);
-    }
+    } 
 }
 
 int main(void)

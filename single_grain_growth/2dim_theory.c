@@ -31,13 +31,15 @@ int main(void)
 
     const float beta = 0.5;
     const float df = 2.0*www/(3.0)*beta;
-    const float r0 = 10.0*dx;
+
+    const int N0 = 10;
+    const float r0 = N0*dx;
 
     //velocity calculation
 
     float v_th;
 
-    for(int N=r0; N<nx; N++) {
+    for(int N=N0; N<nx; N++) {
         char fvel[] = "vel_th.dat";
         v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
         FILE *fp_v = fopen(fvel, "a");

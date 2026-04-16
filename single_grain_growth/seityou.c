@@ -292,7 +292,7 @@ int main(void)
 	const float www   = 6.0*gamma*bbb/delta;
 	const float pmobi = amobi*sqrtf(2.0*www)/(6.0*aaa);
 	
-	const float beta  = 0.5;//‚È‚º‚±‚Ì® ‹ì“®—Í‚É”ä—á‚·‚é‚ª...‚È‚Ì‚ÅA‚½‚¾‚Ì’è”‚Ì’ù³‚µ‚½
+	const float beta  = 1.0;//‚È‚º‚±‚Ì® ‹ì“®—Í‚É”ä—á‚·‚é‚ª...‚È‚Ì‚ÅA‚½‚¾‚Ì’è”‚Ì’ù³‚µ‚½
 	const float df    = 2.0*www/(3.0)*beta;
 
 	const float dt    = dx*dx/(5.*pmobi*aaa*aaa);

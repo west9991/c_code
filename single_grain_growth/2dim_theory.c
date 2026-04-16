@@ -29,7 +29,7 @@ int main(void)
 
     const float www = 6.0*gamma*bbb/delta;
 
-    const float beta = 0.5;
+    const float beta = 0.1;
     const float df = 2.0*www/(3.0)*beta;
 
     const int N0 = 10;
@@ -40,7 +40,8 @@ int main(void)
     float v_th;
 
     for(int N=N0; N<nx; N++) {
-        char fvel[] = "vel_th.dat";
+        char fvel[128];
+        sprintf(fvel, "vel_th%d.dat", (int)(beta*10));
         v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
         FILE *fp_v = fopen(fvel, "a");
         fprintf(fp_v, "%6d %16.7e\n", N, v_th*1.0E6);

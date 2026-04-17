@@ -277,11 +277,11 @@ int main(void)
 	const int eny = ny/EXT;
 
 //<<parameter setting>>//
-	const float dx = 1.0E-6;//格子幅
+	const float dx = 0.5E-6;//格子幅
 	const float dy = dx;
 
 	const float gamma = 1.0;
-	const float nn    = 4.0;
+	const float nn    = 10.0;
 	const float delta = nn*dx;
 	const float amobi = 4.0E-12; //こっちではアレニウスの式ではなく単に1としている->phase-field変数の時間変化が極端に大きくなるので微小な単一粒に合わせるために変更
 
@@ -292,7 +292,7 @@ int main(void)
 	const float www   = 6.0*gamma*bbb/delta;
 	const float pmobi = amobi*sqrtf(2.0*www)/(6.0*aaa);
 	
-	const float beta  = 1.0;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
+	const float beta  = 0.5;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
 	const float df    = 2.0*www/(3.0)*beta;
 
 	const float dt    = dx*dx/(5.*pmobi*aaa*aaa);
@@ -333,7 +333,7 @@ int main(void)
 	if(PP == NULL){fprintf(stderr,"I can't alloc PP\n");exit(1);} 
 
 //<<Initial profile Setting>>//
-	float r0=10.*dx;
+	float r0=100.*dx;
 	for(int j=0; j<ny; j++){
 	for(int i=0; i<nx; i++){
 

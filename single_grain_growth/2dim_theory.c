@@ -16,11 +16,11 @@ int main(void)
 
 //parameter settings//
 
-    const float dx = 1.0E-6;
+    const float dx = 0.5E-6;
     const float dy = dx;
 
     const float gamma = 1.0;
-    const float nn = 4.0;
+    const float nn = 10.0;
     const float delta = nn*dx;
     const float amobi = 4.0E-12;
 
@@ -29,7 +29,7 @@ int main(void)
 
     const float www = 6.0*gamma*bbb/delta;
 
-    const float beta = 0.1;
+    const float beta = 0.5;
     const float df = 2.0*www/(3.0)*beta;
 
     const int N0 = 10;
@@ -41,7 +41,7 @@ int main(void)
 
     for(int N=N0; N<nx; N++) {
         char fvel[128];
-        sprintf(fvel, "vel_th%d.dat", (int)(beta*10));
+        sprintf(fvel, "vel_th_beta%.2f_dx%.2f_nn%d.dat", beta, dx*1.0E6, (int)nn);
         v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
         FILE *fp_v = fopen(fvel, "a");
         fprintf(fp_v, "%6d %16.7e\n", N, v_th*1.0E6);

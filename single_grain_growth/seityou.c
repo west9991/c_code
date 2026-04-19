@@ -106,7 +106,7 @@ void output_time(const char *outname)
 {
 	end = clock();
 	double pas_time = (double)(end-start)/(double)CLOCKS_PER_SEC;
-	double rep_time = (double)(end-mid  )/(double)CLOCKS_PER_SEC; //mid‚Í‰½‚Ì‚½‚ß‚ÌŠÔ
+	double rep_time = (double)(end-mid  )/(double)CLOCKS_PER_SEC; //mid‚Í‰½‚Ì‚½‚ß‚ÌŠÔ->‚±‚ÌƒvƒƒOƒ‰ƒ€‚Å‚Íg‚í‚ê‚Ä‚È‚¢
 	int pas_timeofday_hou = (int)pas_time/3600;
 	int pas_timeofday_min = (int)pas_time%3600/60;
 	int pas_timeofday_sec = (int)pas_time%3600%60;

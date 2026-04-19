@@ -3,5 +3,12 @@
   "**/*.obj": true,
   "**/*.pdb": true,
   "**/*.ilk": true
- }
+ },
+ "editor.quickSuggestions": false,
+ "editor.suggestOnTriggerCharacters": false,
+    "editor.hover.enabled": "off",
+    "editor.parameterHints.enabled": false,
+    "editor.suggest.showDetails": false
+
 }
+

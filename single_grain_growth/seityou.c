@@ -4,8 +4,8 @@
 #define NY  256
 
 #define NEND  3000 //時間増分を何回増分して実行するか
-#define NOUT    20 //時間増分何回あたり、ファイルに出力するのかを決めている（下も同様）
-#define NVEL    20
+#define NOUT    5 //時間増分何回あたり、ファイルに出力するのかを決めている（下も同様）
+#define NVEL    5
 
 #define mgn  1
 #define EXT  2
@@ -277,11 +277,11 @@ int main(void)
 	const int eny = ny/EXT;
 
 //<<parameter setting>>//
-	const float dx = 0.5E-6;//格子幅
+	const float dx = 1.0E-6;//格子幅
 	const float dy = dx;
 
 	const float gamma = 1.0;
-	const float nn    = 10.0;
+	const float nn    = 4.0;
 	const float delta = nn*dx;
 	const float amobi = 4.0E-12; //こっちではアレニウスの式ではなく単に1としている->phase-field変数の時間変化が極端に大きくなるので微小な単一粒に合わせるために変更
 
@@ -292,7 +292,7 @@ int main(void)
 	const float www   = 6.0*gamma*bbb/delta;
 	const float pmobi = amobi*sqrtf(2.0*www)/(6.0*aaa);
 	
-	const float beta  = 0.5;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
+	const float beta  = 0.1;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
 	const float df    = 2.0*www/(3.0)*beta;
 
 	const float dt    = dx*dx/(5.*pmobi*aaa*aaa);
@@ -333,7 +333,8 @@ int main(void)
 	if(PP == NULL){fprintf(stderr,"I can't alloc PP\n");exit(1);} 
 
 //<<Initial profile Setting>>//
-	float r0=100.*dx;
+	int N0 = 100;
+	float r0=(float)N0*dx;
 	for(int j=0; j<ny; j++){
 	for(int i=0; i<nx; i++){
 
@@ -439,6 +440,16 @@ int main(void)
 			sprintf(fvti,"out_%08d",nstep);	
 			paraview(fvti,enx, eny, dx*(float)EXT, dy*(float)EXT, PP);
 		}
+
+		for(int N=N0; N<nx; N++) {
+        char fvel[128];
+        sprintf(fvel, "vel_th_beta%.2f_dx%.2f_nn%d.dat", beta, dx*1.0E6, (int)nn);
+        double v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
+        FILE *fp_v = fopen(fvel, "a");
+        fprintf(fp_v, "%6d %16.7e\n", N, v_th*1.0E6);
+
+        fclose(fp_v);
+    }
 
 		if (rank==0 && nstep%nout == 0) {
 			char ftime[256];

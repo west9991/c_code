@@ -1,11 +1,12 @@
 #define DEVICE_NUMBER 0
 
-#define NX  256 //格子点数
+#define NX  256 //空間サイズ（もともとは格子点数）
 #define NY  256
 
-#define NEND  3000 //時間増分を何回増分して実行するか
-#define NOUT    5 //時間増分何回あたり、ファイルに出力するのかを決めている（下も同様）
-#define NVEL    5
+#define NEND   3000 //時間増分を何回増分して実行するか
+#define NOUT     20 //時間増分何回あたり、ファイルに出力するのかを決めている（下も同様）
+#define NVEL     20
+#define INI     100 //初期化プロファイルが維持されているかを確認する回数
 
 #define mgn  1
 #define EXT  2
@@ -138,7 +139,7 @@ void output_time(const char *outname)
 //=======================================================================
 
 //paraviewがわかってから読むかな？
-void paraview
+void paraview //内部で繰り返すから、データ消去の文を書かなくていい//
 (
 	char *filename,
 	int nx, 
@@ -191,6 +192,25 @@ void paraview
 
 //=================================================-=================================================//
 
+
+void Initial_profile_output
+(
+	const float *p,
+	const int lnx,
+	char *filename
+)
+{
+	char ini[256];
+	sprintf(ini, "%s.dat", filename);
+	FILE *fini_pro = fopen(ini, "w");
+	for(int i=mgn; i<lnx-mgn; i++){
+		fprintf(fini_pro, "%10d %16.7e\n", i, p[(lnx*mgn)+i]);
+	}
+
+	fclose(fini_pro);
+}
+
+
 void Phase_field
 (
 	const int  nx, //格子点数
@@ -205,7 +225,8 @@ void Phase_field
 	const float beta,
 	const float pmobi, //phaseモビリティ
 	const float *p,
-	      float *pp
+	      float *pp,
+	int         nstep
 )
 {
 	for(int j=0; j<ny; j++){
@@ -246,10 +267,15 @@ void Phase_field
 
 		pp[ix] = p_ix+pmobi*dpi*dt; //次の時間の位置毎のphase-field変数の値の格納
 
-	//<<pattern B>>//
+		//異常相を見つけるためのプログラム
 
-		//pp[ix] = p_ix+pmobi*aaa*aaa*((p_im-(float)2.0*p_ix+p_ip)*rdx*rdx+(p_jm-(float)2.0*p_ix+p_jp)*rdy*rdy)
-		//	    +(float)4.0*www*p_ix*((float)1.0-p_ix)*(p_ix-(float)0.5+beta)*dt;
+		if(i == 2 && j == 2){ // 試しに、点（2，2）に注目
+			char ijou[] = "ijou.dat";
+			FILE *fijou = fopen(ijou, "a");
+			fprintf(fijou, "step:%04d   kakusan:%16.7e   hannou:%16.7e   dpi:%16.7e   pp[2,2]:%16.7e\n", nstep, dpi1*dt*pmobi, dpi2*dt*pmobi, dpi*dt*pmobi, pp[ix]);
+
+			fclose(fijou);
+		}
 	}
 	}
 }
@@ -264,11 +290,12 @@ int main(void)
 	float *P, *PP;  //for CPU
 	//float *sum;
 
+	const int XX   = 1; //全体の空間サイズを固定するための定数
 	const int nend = NEND; 
 	const int nout = NOUT;
 
-	const int nx = NX;
-	const int ny = NY;
+	const int nx = NX*XX;
+	const int ny = NY*XX;
 
 	const int lnx = nx+2*mgn;
 	const int lny = ny+2*mgn;
@@ -277,13 +304,13 @@ int main(void)
 	const int eny = ny/EXT;
 
 //<<parameter setting>>//
-	const float dx = 1.0E-6;//格子幅
+	const float dx = 1.0E-6/(float)XX;
 	const float dy = dx;
 
 	const float gamma = 1.0;
 	const float nn    = 4.0;
-	const float delta = nn*dx;
-	const float amobi = 4.0E-12; //こっちではアレニウスの式ではなく単に1としている->phase-field変数の時間変化が極端に大きくなるので微小な単一粒に合わせるために変更
+	const float delta = 8.0E-6; //今は固定値　（初期プロファイルに影響を与える）
+	const float amobi = 4.0E-12;
 
 	const float ram   = 0.1;
 	const float bbb   = 2.0*logf((1.0+(1.0-2.0*ram))/(1.0-(1.0-2.0*ram)))/2.0;
@@ -292,16 +319,21 @@ int main(void)
 	const float www   = 6.0*gamma*bbb/delta;
 	const float pmobi = amobi*sqrtf(2.0*www)/(6.0*aaa);
 	
-	const float beta  = 0.1;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
+	const float beta  = 0.5;
 	const float df    = 2.0*www/(3.0)*beta;
 
 	const float dt    = dx*dx/(5.*pmobi*aaa*aaa);
 
+	double error_max=0;
 	//file delete
 	FILE *delete_vel = fopen("vel.dat", "w");
 	fclose(delete_vel);
 	FILE *delete_vol = fopen("vol.dat", "w");
 	fclose(delete_vol);
+	
+	char del_th[256];
+	sprintf(del_th, "vel_th_beta%.2f_dx%.2f_nn%d.dat", beta, dx*1.0E6, (int)nn);
+	FILE *delete_th = fopen(del_th, "w");
 
 
 	//Initial data output
@@ -333,14 +365,14 @@ int main(void)
 	if(PP == NULL){fprintf(stderr,"I can't alloc PP\n");exit(1);} 
 
 //<<Initial profile Setting>>//
-	int N0 = 100;
+	int N0 = 10;
 	float r0=(float)N0*dx;
 	for(int j=0; j<ny; j++){
 	for(int i=0; i<nx; i++){
 
 		const int ix = (j+mgn)*lnx + (i+mgn);
 		
-		float xx = (float)i*dx;
+		float xx = (float)i*dx; //内側の座標基準
 		float yy = (float)j*dy;
 
 		float rr = sqrtf(xx*xx+yy*yy)-r0;
@@ -349,6 +381,11 @@ int main(void)
 	}
 	}
 
+	//initial_profile_first
+
+	char syoki[256];
+	sprintf(syoki, "initial_profile_out_0000");
+	Initial_profile_output(P, lnx, syoki);
 //<<interface velocity along x-axies initialaize>>//
 	float xx05 = 0.0;
 	float  x05 = 0.0;
@@ -362,6 +399,7 @@ int main(void)
 			break;
 		}	
 	}
+
 
 	if (rank==0) {
 		char ftime[256];
@@ -380,7 +418,7 @@ int main(void)
 		BC_2Dyp_zeroflux(P, nx, ny, mgn);
 
 		//**************************************************************************************//
-		Phase_field(nx,ny,lnx,lny,1.0/dx,1.0/dy,dt,aaa,www,beta,pmobi,P,PP);
+		Phase_field(nx,ny,lnx,lny,1.0/dx,1.0/dy,dt,aaa,www,beta,pmobi,P,PP, nstep);
 		//**************************************************************************************//
 
 		swap_f(&P,  &PP);
@@ -397,6 +435,19 @@ int main(void)
 			}
 			const float u05 = (x05-xx05)/(dt*(float)nvel);
 			xx05 = x05;
+
+			//誤差計算
+
+			double v_th = amobi*(df-gamma/(x05));//対称性より粒半径はx05でいい
+			double error_v = fabs((v_th - u05)/u05)*100; //誤差率[%]で計算
+
+
+			char ferror[] = "error.dat";
+			FILE *fp_e = fopen(ferror, "a");
+			fprintf(fp_e, "%16.7e %16.7e\n", x05*1.0E6, error_v);
+
+			
+			fclose(fp_e);
 
 			char fvel[] = "vel.dat"; //界面移動速度を書き込むファイル
 			FILE *fp_v = fopen(fvel,"a"); //追記モード
@@ -441,16 +492,13 @@ int main(void)
 			paraview(fvti,enx, eny, dx*(float)EXT, dy*(float)EXT, PP);
 		}
 
-		for(int N=N0; N<nx; N++) {
-        char fvel[128];
-        sprintf(fvel, "vel_th_beta%.2f_dx%.2f_nn%d.dat", beta, dx*1.0E6, (int)nn);
-        double v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
-        FILE *fp_v = fopen(fvel, "a");
-        fprintf(fp_v, "%6d %16.7e\n", N, v_th*1.0E6);
+		if(nstep%INI==0){
+			char fini[256];
+			sprintf(fini, "initial_profile_out_%04d", nstep);
+			Initial_profile_output(P, lnx, fini);
+		}
 
-        fclose(fp_v);
-    }
-
+		
 		if (rank==0 && nstep%nout == 0) {
 			char ftime[256];
 			sprintf(ftime, "nstep = %6d", nstep);
@@ -458,6 +506,19 @@ int main(void)
 		}
 
 	}
+	//界面速度の理論式output
+	for(int N=N0; N<nx; N++) {
+        char fvel[128];
+        sprintf(fvel, "vel_th.dat");
+        double v_th = amobi*(df-gamma/(dx*N));//二次元界面移動速度の理論式（モデル式）
+        FILE *fp_v = fopen(fvel, "a");
+        fprintf(fp_v, "%6d %16.7e\n", N, v_th*1.0E6);
+
+        fclose(fp_v);
+    }
+
+	
+
 	
 //<<<<<<<<<<<<<<<<<<<<<<<<< main loop finish >>>>>>>>>>>>>>>>>>>>>>>>>//
 	

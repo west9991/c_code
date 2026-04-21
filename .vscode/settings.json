@@ -4,7 +4,11 @@
   "**/*.pdb": true,
   "**/*.ilk": true
  },
- "editor.quickSuggestions": false,
+ "editor.quickSuggestions": {
+    "comments": "off",
+    "strings": "off",
+    "other": "off"
+},
  "editor.suggestOnTriggerCharacters": false,
     "editor.hover.enabled": "off",
     "editor.parameterHints.enabled": false,

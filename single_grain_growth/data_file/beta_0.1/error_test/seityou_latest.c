@@ -284,11 +284,12 @@ int main(void)
 	float *P, *PP;  //for CPU
 	//float *sum;
 
+	const int XX   = 4; //全体の空間サイズを固定するための定数
 	const int nend = NEND; 
 	const int nout = NOUT;
 
-	const int nx = NX;
-	const int ny = NY;
+	const int nx = NX*XX;
+	const int ny = NY*XX;
 
 	const int lnx = nx+2*mgn;
 	const int lny = ny+2*mgn;
@@ -297,13 +298,13 @@ int main(void)
 	const int eny = ny/EXT;
 
 //<<parameter setting>>//
-	const float dx = 1.0E-6;//格子幅
+	const float dx = 1.0E-6/(float)XX;
 	const float dy = dx;
 
 	const float gamma = 1.0;
 	const float nn    = 4.0;
-	const float delta = nn*dx;
-	const float amobi = 4.0E-12; //こっちではアレニウスの式ではなく単に1としている->phase-field変数の時間変化が極端に大きくなるので微小な単一粒に合わせるために変更
+	const float delta = 4.0E-6; //今は固定値　（初期プロファイルに影響を与える）
+	const float amobi = 4.0E-12;
 
 	const float ram   = 0.1;
 	const float bbb   = 2.0*logf((1.0+(1.0-2.0*ram))/(1.0-(1.0-2.0*ram)))/2.0;
@@ -312,7 +313,7 @@ int main(void)
 	const float www   = 6.0*gamma*bbb/delta;
 	const float pmobi = amobi*sqrtf(2.0*www)/(6.0*aaa);
 	
-	const float beta  = 0.1;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
+	const float beta  = 0.5;//なぜこの式 駆動力に比例するが...なので、ただの定数の訂正した
 	const float df    = 2.0*www/(3.0)*beta;
 
 	const float dt    = dx*dx/(5.*pmobi*aaa*aaa);

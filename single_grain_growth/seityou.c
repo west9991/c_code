@@ -269,7 +269,7 @@ void Phase_field
 
 		//異常相を見つけるためのプログラム
 
-		if(i == 2 && j == 2){ // 試しに、点（2，2）に注目
+		if(i == 20 && j == 20){ // 試しに、点（20，20）に注目
 			char ijou[] = "ijou.dat";
 			FILE *fijou = fopen(ijou, "a");
 			fprintf(fijou, "step:%04d   kakusan:%16.7e   hannou:%16.7e   dpi:%16.7e   pp[2,2]:%16.7e\n", nstep, dpi1*dt*pmobi, dpi2*dt*pmobi, dpi*dt*pmobi, pp[ix]);
@@ -309,7 +309,7 @@ int main(void)
 
 	const float gamma = 1.0;
 	const float nn    = 4.0;
-	const float delta = 8.0E-6; //今は固定値　（初期プロファイルに影響を与える）
+	const float delta = 4.0E-6; //今は固定値　（初期プロファイルに影響を与える）
 	const float amobi = 4.0E-12;
 
 	const float ram   = 0.1;

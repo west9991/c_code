@@ -1,0 +1,10 @@
+<<<<< Setting Data >>>>> 
+nx                 [-] =         512
+ny                 [-] =         512
+<<<<< Dimensional values >>>>> 
+Interface thickness  [m]        =     2.0000000e-06
+Lattice size         [m]        =     5.0000000e-07
+Time increment       [s]        =     1.2500000e-02
+Interfacial energy   [J/m^2]    =     1.0000000e+00
+Interfacial mobility [m^4/(Js)] =     4.0000000e-12
+Beta                 [-]        =     4.0000001e-01
